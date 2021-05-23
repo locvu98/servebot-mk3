@@ -1,0 +1,306 @@
+<?xml version="1.0"?>
+<robot name="body" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find servebot_description)/urdf/common_properties.urdf.xacro"/>
+  <xacro:include filename="$(find servebot_description)/urdf/body_gazebo.urdf.xacro"/>
+
+  <link name="base_footprint"/>
+   
+  <joint name="base_joint" type="fixed">
+    <origin xyz="0 0 0.050" rpy="0 0 0" />
+    <parent link="base_footprint"/>
+    <child link="base_link" />
+  </joint>
+
+  <link name="base_link">
+
+    <visual>
+      <geometry>
+        <mesh filename="package://servebot_description/meshes/base_servebot.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </visual>
+
+    <collision>
+      <geometry>
+        <!-- <cylinder length="1.050" radius="0.215"/> -->
+        <box size="0.430 0.430 1.050"/>
+      </geometry>
+      <origin xyz="0 0 0.488" rpy="0 0 0"/>
+    </collision>
+
+    <!-- <inertial>
+      <origin xyz="0.02811 0.33345 0.00978"/>
+      <mass value="9.32"/> 
+      <inertia ixx="0.992829" ixy="-0.0013265787" ixz="0.00003710056"
+               iyy="0.291085" iyz="-0.0085137154" 
+               izz="1.054192" />
+    </inertial> -->
+
+    <inertial>
+      <origin xyz="0.01 0 0"/>
+      <mass value="6"/> 
+      <inertia ixx="0.019995" ixy="0.0" ixz="0.0"
+               iyy="0.019995" iyz="0.0" 
+               izz="0.03675" />
+    </inertial>
+
+  </link>
+
+  <joint name="wheel_left_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_left_link"/>
+    <origin xyz="0.203 0 -0.0175" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+
+  <link name="wheel_left_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://servebot_description/meshes/drive_wheel_servebot.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <geometry>
+        <!-- <box size="0.030 0.065 0.065"/> -->
+        <cylinder length="0.015" radius="0.03"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 ${M_PI/2} 0"/>
+    </collision>
+
+    <!-- <inertial>
+      <origin xyz="0 0 0.00056"/>
+      <mass value="0.07599"/> 
+      <inertia ixx="0.00002546424" ixy="0.0" ixz="0.0"
+               iyy="0.00002546424" iyz="0.0" 
+               izz="0.00004269313" />
+    </inertial> -->
+
+    <inertial>
+      <mass value="0.01" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+               iyy="0.001" iyz="0.0" 
+               izz="0.001" />
+    </inertial>
+
+  </link>
+
+  <joint name="wheel_right_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_right_link"/>
+    <origin xyz="-0.203 0 -0.0175" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+
+  <link name="wheel_right_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://servebot_description/meshes/drive_wheel_servebot.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <geometry>
+        <!-- <box size="0.030 0.065 0.065"/> -->
+        <cylinder length="0.015" radius="0.03"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 ${-M_PI/2} 0"/>
+    </collision>
+
+    <!-- <inertial>
+      <origin xyz="0 0 0.00056"/>
+      <mass value="0.07599"/> 
+      <inertia ixx="0.00002546424" ixy="0.0" ixz="0.0"
+               iyy="0.00002546424" iyz="0.0" 
+               izz="0.00004269313" />
+    </inertial> -->
+
+    <inertial>
+      <mass value="0.01" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+               iyy="0.001" iyz="0.0" 
+               izz="0.001" />
+    </inertial>
+  </link>
+
+  <joint name="caster_front_joint_1" type="continuous">
+    <parent link="base_link"/>
+    <child link="caster_front_link_1"/>
+    <origin xyz="0 0.165 -0.003" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="caster_front_link_1">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://servebot_description/meshes/caster_wheel_1_servebot.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <geometry>
+        <box size="0.050 0.064 0.033"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+
+    <!-- <inertial>
+      <origin xyz="0 -0.00821 0.0055"/>
+      <mass value="0.09869"/> 
+      <inertia ixx="0.00003500078" ixy="6.9e-10" ixz="2.85e-9"
+               iyy="0.00005534462" iyz="-0.00000398827" 
+               izz="0.00003147859" />
+    </inertial> -->
+
+    <inertial>
+      <mass value="0.005" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.0005" ixy="0.0" ixz="0.0"
+               iyy="0.0005" iyz="0.0" 
+               izz="0.0005" />
+    </inertial>
+  </link>
+
+  <joint name="caster_front_joint_2" type="continuous">
+    <parent link="caster_front_link_1"/>
+    <child link="caster_front_link_2"/>
+    <origin xyz="0 -0.03378 -0.02786" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+
+  <link name="caster_front_link_2">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://servebot_description/meshes/caster_wheel_2_servebot.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <geometry>
+        <!-- <box size="0.046 0.040 0.040"/> -->
+        <cylinder length="0.023" radius="0.010"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 ${M_PI/2} 0"/>
+    </collision>
+
+    <!-- <inertial>
+      <origin xyz="0 0 0"/>
+      <mass value="0.03476"/> 
+      <inertia ixx="0.00000606847" ixy="0.0" ixz="0.0"
+               iyy="0.00000464975" iyz="0.0" 
+               izz="0.00000464975" />
+    </inertial> -->
+
+    <inertial>
+      <mass value="0.005" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.0005" ixy="0.0" ixz="0.0"
+               iyy="0.0005" iyz="0.0" 
+               izz="0.0005" />
+    </inertial>
+  </link>
+
+  <joint name="caster_back_joint_1" type="continuous">
+    <parent link="base_link"/>
+    <child link="caster_back_link_1"/>
+    <origin xyz="0 -0.165 -0.003" rpy="0 0 ${M_PI}"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="caster_back_link_1">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://servebot_description/meshes/caster_wheel_1_servebot.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <geometry>
+        <box size="0.050 0.064 0.033"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+
+    <!-- <inertial>
+      <origin xyz="0 -0.00821 0.0055"/>
+      <mass value="0.09869"/> 
+      <inertia ixx="0.00003500078" ixy="6.9e-10" ixz="2.85e-9"
+               iyy="0.00005534462" iyz="-0.00000398827" 
+               izz="0.00003147859" />
+    </inertial> -->
+
+    <inertial>
+      <mass value="0.005" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.0005" ixy="0.0" ixz="0.0"
+               iyy="0.0005" iyz="0.0" 
+               izz="0.0005" />
+    </inertial>
+  </link>
+
+  <joint name="caster_back_joint_2" type="continuous">
+    <parent link="caster_back_link_1"/>
+    <child link="caster_back_link_2"/>
+    <origin xyz="0 -0.03378 -0.02786" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+
+  <link name="caster_back_link_2">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://servebot_description/meshes/caster_wheel_2_servebot.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <geometry>
+        <!-- <box size="0.046 0.040 0.040"/> -->
+        <cylinder length="0.023" radius="0.010"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 ${M_PI/2} 0"/>
+    </collision>
+
+    <!-- <inertial>
+      <origin xyz="0 0 0"/>
+      <mass value="0.03476"/> 
+      <inertia ixx="0.00000606847" ixy="0.0" ixz="0.0"
+               iyy="0.00000464975" iyz="0.0" 
+               izz="0.00000464975" />
+    </inertial> -->
+
+    <inertial>
+      <mass value="0.005" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.0005" ixy="0.0" ixz="0.0"
+               iyy="0.0005" iyz="0.0" 
+               izz="0.0005" />
+    </inertial>
+  </link>
+
+  <joint name="gyro_joint" type="fixed">
+    <axis xyz="0 1 0"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="gyro_link"/>
+  </joint>
+
+  <link name="gyro_link">
+    <inertial>
+      <mass value="0.001"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" 
+               iyy="0.000001" iyz="0"
+               izz="0.0001"/>
+    </inertial>
+  </link>
+
+</robot>
+

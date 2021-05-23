@@ -1,0 +1,10 @@
+<launch>
+
+  <rosparam param="base_width">0.4</rosparam>
+  <rosparam param="ticks_meter">14865</rosparam>
+
+  <node name="arduino_node" pkg="servebot_bringup" type="serial_interface.py"/>
+  <node pkg="servebot_bringup" type="vel_com_to_motors.py" name="twist_to_motors" output="screen"/>
+  <node pkg="servebot_bringup" type="diff_tf.py" name="diff_tf" output="screen"/> 
+
+</launch>

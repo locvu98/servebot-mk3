@@ -1,0 +1,54 @@
+<launch>
+
+  <rosparam param="base_width">0.3</rosparam>
+  <rosparam param="ticks_meter">62.69725</rosparam>
+
+
+  <node name="arduino_node" pkg="servebot_bringup" type="arduino_node.py">
+    <!-- <rosparam file="$(find chefbot_bringup)/param/board_config.yaml" command="load" /> -->
+  </node>
+
+
+
+  <node name="lpid_velocity" pkg="servebot_bringup" type="pid_velocity.py" output="screen">
+      <remap from="wheel" to="lwheel"/>
+      <remap from="motor_cmd" to="left_wheel_speed"/>
+      <remap from="wheel_vtarget" to="lwheel_vtarget"/>
+      <remap from="wheel_vel" to="lwheel_vel"/>
+    
+      <rosparam param="Kp">150.28914</rosparam>
+      <rosparam param="Ki">857.85485</rosparam>
+      <rosparam param="Kd">0</rosparam>
+      <rosparam param="out_min">-255</rosparam>
+      <rosparam param="out_max">255</rosparam>
+      <rosparam param="rate">30</rosparam>
+      <rosparam param="timeout_ticks">4</rosparam>
+      <rosparam param="rolling_pts">5</rosparam>
+
+  </node>
+
+  <node name="rpid_velocity" pkg="servebot_bringup" type="pid_velocity.py" output="screen">
+      <remap from="wheel" to="rwheel"/>
+      <remap from="motor_cmd" to="right_wheel_speed"/>
+      <remap from="wheel_vtarget" to="rwheel_vtarget"/>
+      <remap from="wheel_vel" to="rwheel_vel"/>
+      <rosparam param="Kp">150.28914</rosparam>
+      <rosparam param="Ki">957.85485</rosparam>
+      <rosparam param="Kd">0</rosparam>
+      <rosparam param="out_min">-255</rosparam>
+      <rosparam param="out_max">255</rosparam>
+      <rosparam param="rate">30</rosparam>
+      <rosparam param="timeout_ticks">4</rosparam>
+      <rosparam param="rolling_pts">5</rosparam>
+
+
+
+ </node>
+
+
+  <node pkg="servebot_bringup" type="twist_to_motors.py" name="twist_to_motors" output="screen"/>
+  <node pkg="servebot_bringup" type="diff_tf.py" name="diff_tf" output="screen"/> 
+
+
+</launch>
+

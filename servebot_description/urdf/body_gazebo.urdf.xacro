@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+
+<robot name="body_sim" xmlns:xacro="http://ros.org/wiki/xacro">
+		<gazebo reference="wheel_left_link">
+			<mu1>1.0</mu1>
+			<mu2>1.0</mu2>
+			<kp>1000000.0</kp>
+			<kd>100.0</kd>
+			<minDepth>0.001</minDepth>
+			<maxVel>1.0</maxVel>
+		</gazebo>
+	
+		<gazebo reference="wheel_right_link">
+			<mu1>1.0</mu1>
+			<mu2>1.0</mu2>
+			<kp>1000000.0</kp>
+			<kd>100.0</kd>
+			<minDepth>0.001</minDepth>
+			<maxVel>1.0</maxVel>
+		</gazebo>
+	
+		<gazebo reference="caster_front_link_1">
+			<mu1>1.0</mu1>
+			<mu2>1.0</mu2>
+			<kp>1000000.0</kp>
+			<kd>100.0</kd>
+			<minDepth>0.001</minDepth>
+			<maxVel>1.0</maxVel>
+		</gazebo>
+	
+		<gazebo reference="caster_front_link_2">
+			<mu1>1.0</mu1>
+			<mu2>1.0</mu2>
+			<kp>1000000.0</kp>
+			<kd>100.0</kd>
+			<minDepth>0.001</minDepth>
+			<maxVel>1.0</maxVel>
+		</gazebo>
+	
+		<gazebo reference="caster_back_link_1">
+			<mu1>1.0</mu1>
+			<mu2>1.0</mu2>
+			<kp>1000000.0</kp>
+			<kd>100.0</kd>
+			<minDepth>0.001</minDepth>
+			<maxVel>1.0</maxVel>
+		</gazebo>
+	
+		<gazebo reference="caster_back_link_2">
+			<mu1>1.0</mu1>
+			<mu2>1.0</mu2>
+			<kp>1000000.0</kp>
+			<kd>100.0</kd>
+			<minDepth>0.001</minDepth>
+			<maxVel>1.0</maxVel>
+		</gazebo>
+	
+		<gazebo reference="base_link">
+			<mu1>0.3</mu1>
+			<mu2>0.3</mu2>
+			<sensor type="contact" name="bumpers">
+			  <always_on>1</always_on>
+			  <update_rate>50.0</update_rate>
+			  <visualize>true</visualize>
+			  <contact>
+				<collision>base_footprint_collision_base_link</collision>
+			  </contact>
+			</sensor>
+		</gazebo>
+	
+		<gazebo reference="gyro_link">
+			<sensor type="imu" name="imu">
+			 <always_on>true</always_on>
+			 <update_rate>50</update_rate>
+			 <visualize>false</visualize>
+			 <imu>
+			   <noise>
+				 <type>gaussian</type>
+				   <rate>
+					 <mean>0.0</mean>
+					 <stddev>${0.0014*0.0014}</stddev> <!-- 0.25 x 0.25 (deg/s) -->
+					 <bias_mean>0.0</bias_mean>
+					 <bias_stddev>0.0</bias_stddev>
+				   </rate>
+					 <accel> <!-- not used in the plugin and real robot, hence using tutorial values -->
+						 <mean>0.0</mean>
+						 <stddev>1.7e-2</stddev>
+						 <bias_mean>0.1</bias_mean>
+						 <bias_stddev>0.001</bias_stddev>
+					 </accel>
+			   </noise>
+			   </imu>
+		   </sensor>
+		</gazebo>
+	
+		<gazebo>
+			<plugin name="diff_wheel_controller" filename="libgazebo_ros_diff_drive.so">
+			  <commandTopic>cmd_vel</commandTopic>
+			  <odometryTopic>odom</odometryTopic>
+			  <odometryFrame>odom</odometryFrame>
+			  <odometrySource>world</odometrySource>
+			  <publishOdomTF>true</publishOdomTF>
+			  <robotBaseFrame>base_footprint</robotBaseFrame>
+			  <publishWheelTF>false</publishWheelTF>
+			  <publishTf>true</publishTf>
+			  <publishWheelJointState>true</publishWheelJointState>
+			  <legacyMode>false</legacyMode>
+			  <updateRate>30</updateRate>
+			  <leftJoint>wheel_left_joint</leftJoint>
+			  <rightJoint>wheel_right_joint</rightJoint>
+			  <wheelSeparation>0.406</wheelSeparation>
+			  <wheelDiameter>0.065</wheelDiameter>
+			  <wheelAcceleration>1</wheelAcceleration>
+			  <wheelTorque>5</wheelTorque>
+			  <rosDebugLevel>na</rosDebugLevel>
+			</plugin>
+		</gazebo>
+	
+	
+
+</robot>

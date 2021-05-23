@@ -1,0 +1,13 @@
+<launch>
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+        <arg name="align_depth" value="true" />
+    </include>
+
+    <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan">
+        <remap from="image"       to="/camera/aligned_depth_to_color/image_raw"/>
+        <remap from="camera_info" to="/camera/aligned_depth_to_color/camera_info"/>
+        <remap from="scan"        to="/scan"/>
+        <param name="range_max" type="double" value="4"/>
+    </node>
+ 
+</launch>
